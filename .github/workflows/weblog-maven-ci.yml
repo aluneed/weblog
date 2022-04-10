@@ -58,5 +58,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_ACTION_KEY }}
           port: ${{ secrets.SSH_PORT}}
-          script: whoami
-#          script: bash ~/projects/weblog/deploy.sh
+          script: bash ~/projects/weblog/deploy.sh
+#          script: whoami
