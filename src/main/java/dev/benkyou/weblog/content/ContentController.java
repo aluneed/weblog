@@ -18,11 +18,11 @@ public class ContentController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/list")
-    public Rsp<List<ContentMetadata>> contentList(@BeanParam ContentMetadata contentMetadata,
+    public Rsp<Page<ContentMetadata>> contentList(@BeanParam ContentMetadata contentMetadata,
                                                   @DefaultValue("0") @QueryParam("pageIndex") Integer pageIndex,  //页索引从0开始
                                                   @DefaultValue("10") @QueryParam("pageSize") Integer pageSize) {
-        List<ContentMetadata> contentMetadataList = contentService.getContentList(contentMetadata, pageIndex, pageSize);
-        return Rsp.ok(contentMetadataList);
+        Page<ContentMetadata> contentMetadataPage = contentService.getContentPage(contentMetadata, pageIndex, pageSize);
+        return Rsp.ok(contentMetadataPage);
     }
 
     @GET

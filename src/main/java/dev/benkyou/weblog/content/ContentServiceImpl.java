@@ -16,7 +16,7 @@ public class ContentServiceImpl implements ContentService {
     ContentMetadataRepository contentMetadataRepository;
 
     @Override
-    public List<ContentMetadata> getContentList(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize) {
+    public Page<ContentMetadata> getContentPage(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize) {
         //mybatis will be much better here
         String title = contentMetadata.getTitle() == null ? "%" : "%" + contentMetadata.getTitle() + "%";
         String tags = contentMetadata.getTags() == null ? "%" : "%" + contentMetadata.getTags() + "%";
@@ -31,7 +31,7 @@ public class ContentServiceImpl implements ContentService {
                         category,
                         keywords)
                 .page(pageIndex, pageSize);
-        return panacheQuery.list();
+        return new Page<>(panacheQuery);
     }
 
     @Override

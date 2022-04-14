@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ContentService {
 
-    List<ContentMetadata> getContentList(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize);
+    Page<ContentMetadata> getContentPage(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize);
 
     ContentMetadata getContentByPathName(String pathName);
 
