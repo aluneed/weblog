@@ -27,9 +27,17 @@ public class ContentController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{pathName}")
+    public Rsp<ContentMetadata> content(@PathParam("pathName") String pathName) {
+        ContentMetadata contentMetadata = contentService.getContentByPathName(pathName);
+        return Rsp.ok(contentMetadata);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/getContent")
     public Rsp<ContentMetadata> getContent(@QueryParam("id") Long id) {
-        ContentMetadata contentMetadata = contentService.getContent(id);
+        ContentMetadata contentMetadata = contentService.getContentById(id);
         return Rsp.ok(contentMetadata);
     }
 

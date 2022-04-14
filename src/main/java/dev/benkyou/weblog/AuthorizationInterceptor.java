@@ -16,16 +16,14 @@ public class AuthorizationInterceptor implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext context) {
         String uriPath = context.getUriInfo().getPath();
+        String requestMethod = context.getMethod();
         //todo
-        if(uriPath.equals("/content/list") ||
-                uriPath.equals("/content/getContent") ||
-                uriPath.equals("/user/login") ||
-                uriPath.equals("/user/signup")) {
+        if (uriPath.startsWith("/user") || requestMethod.equals("GET")) {
             return;
         }
         String token = context.getHeaderString("Authorization");
         if (token != null && !token.isEmpty()) {
-            if (userService.checkToken(token)){
+            if (userService.checkToken(token)) {
                 return;
             }
         }

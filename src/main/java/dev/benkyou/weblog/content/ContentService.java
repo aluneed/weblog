@@ -6,7 +6,9 @@ public interface ContentService {
 
     List<ContentMetadata> getContentList(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize);
 
-    ContentMetadata getContent(Long id);
+    ContentMetadata getContentByPathName(String pathName);
+
+    ContentMetadata getContentById(Long id);
 
     Long save(ContentMetadata contentMetadata);
 

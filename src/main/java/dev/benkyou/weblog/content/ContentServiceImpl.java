@@ -4,12 +4,16 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
 public class ContentServiceImpl implements ContentService {
+
+    @Inject
+    ContentMetadataRepository contentMetadataRepository;
 
     @Override
     public List<ContentMetadata> getContentList(ContentMetadata contentMetadata, Integer pageIndex, Integer pageSize) {
@@ -31,7 +35,18 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public ContentMetadata getContent(Long id) {
+    public ContentMetadata getContentByPathName(String pathName) {
+        ContentMetadata contentMetadata = contentMetadataRepository.find("path_name", pathName).firstResult();
+        if (contentMetadata == null) {
+            return new ContentMetadata();
+        }
+        Content content = Content.findById(contentMetadata.getId());
+        contentMetadata.setContent(content.getContent());
+        return contentMetadata;
+    }
+
+    @Override
+    public ContentMetadata getContentById(Long id) {
         ContentMetadata contentMetadata = ContentMetadata.findById(id);
         if (contentMetadata == null) {
             return new ContentMetadata();
