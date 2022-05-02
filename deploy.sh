@@ -1,3 +1,4 @@
+cd ~/projects/weblog
 git pull
 mvn package -Dquarkus.package.type=uber-jar
 cp ./target/weblog-1.0-SNAPSHOT-runner.jar ~/apps
